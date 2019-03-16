@@ -95,7 +95,7 @@ Server()
 
 ## Usage
 
-See [example.](example/server_example.dart)
+See [example.](example/example.dart)
 
 ## Features and bugs
 

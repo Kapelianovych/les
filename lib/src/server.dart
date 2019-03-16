@@ -31,6 +31,9 @@ class Server {
   }
 
   /// Listen for requests at [port] and [host]
+  ///
+  /// If `Route` isn't provided for `path` and `method`, error message will be
+  /// sent to the client.
   Future<void> listen(int port, {String host = '127.0.0.1'}) async {
     final connection = await HttpServer.bind(host, port);
     print('Connection was established at $host:$port');
@@ -40,7 +43,8 @@ class Server {
 
       final hasMatch = _controllers.any((r) => r.hasMatch(ctx));
       if (!hasMatch) {
-        ctx.sendError(404, 'Route isn\'t privided for path: ${ctx.uri.path}');
+        ctx.sendError(HttpStatus.notImplemented,
+            'Route isn\'t privided for path: ${ctx.uri.path}');
       }
 
       if (_middlewares.isNotEmpty) {

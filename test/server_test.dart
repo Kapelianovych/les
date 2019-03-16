@@ -6,7 +6,7 @@ void main() {
   ..use(Middleware((ctx) {
     print(ctx.reqBody);
   }))
-    ..add(routes)
+    //..add(routes)
     ..listen(7575);
 }
 
@@ -18,5 +18,5 @@ final routes = Router('/')
   ..add(Route(
       'af/af',
       (ctx) => ctx.send('Hello post'),
-      method: HttpMethod.post
+      method: HttpMethod.delete
       ));
