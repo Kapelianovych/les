@@ -45,6 +45,13 @@ class Context {
   /// represents how request body was parsed
   String reqBodyType;
 
+  /// Holds files from `static` directory (default directory for static files,
+  /// you can change it in `buildStaticFilesHandler` middleware)
+  ///
+  /// Keys are paths of each file started from root directory of project.
+  /// Example: `static/image.png`.
+  Map<String, File> files;
+
   /// Sends [body] to client
   Future<void> send(Object body) async {
     response.write(body);

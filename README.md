@@ -64,7 +64,7 @@ All path that defines in `Route` of `Router` transforms to `RegExp` and parses b
 
 ### Predefined middlewares
 
-- **bodyParser**: with library ships `bodyParser` middleware that process context object and parses its body if it exists. The content body is parsed, depending on the `Content-Type` header field. When the full body is read and parsed the body content is made available.
+1. **bodyParser**: with library ships `bodyParser` middleware that process context object and parses its body if it exists. The content body is parsed, depending on the `Content-Type` header field. When the full body is read and parsed the body content is made available.
 
 The following content types are recognized:
 
@@ -88,6 +88,21 @@ For all other content types the body will be treated as uninterpreted binary dat
 ```dart
 Server()
     ..use(bodyParser) // Add bodyPaarser
+    ..use(...) // Add middlewares
+    ..add(...) // Add routes
+    ..listen(2000); // Start listen to requests
+```
+
+2. **staticFilesHandler**: builds static files handler for provided path to static folder.
+Path starts from the root of project. All files will store in `Context` object for current session.
+Note that context will not store actual files, instead it will contain
+`File` objects with some info about actual file. You must read and convert that files by yourself.
+If directory isn't exist context object will have empty `Map` object.
+
+```dart
+Server()
+    ..use(bodyParser) // Add bodyPaarser
+    ..use(buildStaticFilesHandler()) // Add staticFilesHandler
     ..use(...) // Add middlewares
     ..add(...) // Add routes
     ..listen(2000); // Start listen to requests

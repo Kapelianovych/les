@@ -13,3 +13,5 @@ doc/api/
 # Custom
 .vscode/
 .idea/
+.DS_Store
+static/

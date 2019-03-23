@@ -5,9 +5,7 @@ void main(List<String> args) {
   Server()
   // Add middlewares
   ..use(bodyParser)
-  ..use(Middleware((ctx) {
-    print(ctx.reqBody);
-  }))
+  ..use(buildStaticFilesHandler())
   // Add [Routes]
     ..add(routes)
     // Start listen for requests

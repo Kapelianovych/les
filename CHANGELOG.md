@@ -1,4 +1,10 @@
-# 0.0.2
+# 0.0.3
+
+- Add `staticFilesHandler` middleware.
+- Add `files` field to `Context` object.
+- Edit README.
+
+## 0.0.2
 
 - Change `bodyParser` to parse body in `put`, `post`, `patch` and `delete` http methods.
 - Add default error responce 501 if route for request isn't provided.
