@@ -50,7 +50,7 @@ class Context {
   ///
   /// Keys are paths of each file started from root directory of project.
   /// Example: `static/image.png`.
-  Map<String, File> files;
+  final Map<String, File> staticFiles = <String, File>{};
 
   /// Sends [body] to client
   Future<void> send(Object body) async {

@@ -1,4 +1,9 @@
-# 0.0.3
+# 0.0.3+1
+
+- Edit README.
+- Rename `files` field of `Context` to `staticFiles`.
+
+## 0.0.3
 
 - Add `staticFilesHandler` middleware.
 - Add `files` field to `Context` object.

@@ -12,7 +12,7 @@ final routes = Router('/')
   ..add(Route(
         r':a(\d+)',
         (ctx) async {
-          await ctx.send(ctx.files['static/image.png'].readAsBytesSync());
+          await ctx.send(ctx.staticFiles['static/image.png'].readAsBytesSync());
         }
       ))
   ..add(Route(

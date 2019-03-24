@@ -27,12 +27,12 @@ Route(
 );
 ```
 
-If exist many routes that starts with the same path prefix, then you can provide a `Router`. Its just a collection of `Route`s for paths that start with identical prefix.
+If exist many routes that starts with the same path prefix, then you can provide a `Router`. Its just a collection of `Route`s for paths that start with identical prefix. Or you can use `Router` if you need handle requests with the same paths, but different http methods.
 
 ```dart
 // Define [Route]s that describe answers for concrete requests
 final routeOne = Route(
-        r'/:a(\d+)', // Will match /5, /83645, but not /word or other symbols
+        r'/:a(\d+)', // Will match /identical/5, /83645, but not /identical/word or other symbols
         (ctx) => ctx.send('Hello get')
       );
 final routeTwo = Route(
@@ -40,8 +40,13 @@ final routeTwo = Route(
       (ctx) => ctx.send('Hello post'),
       method: HttpMethod.post
       )
+final routeThree = Route(
+      '', // If you left empty path, then it will be sets to `Router`'s /identical
+      (ctx) => ctx.send('Hello put'),
+      method: HttpMethod.put
+      )
 final routes = Router('/identical');
-  ..addAll(<Route>[routeOne, routeTwo]);
+  ..addAll(<Route>[routeOne, routeTwo, routeThree]);
 ```
 
 ### Middleware
