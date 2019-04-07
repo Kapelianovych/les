@@ -27,6 +27,9 @@ class Context {
   /// Request headers
   HttpHeaders get reqHeaders => request.headers;
 
+  /// Session for this request
+  HttpSession get session => request.session;
+
   /// Response headers
   HttpHeaders get resHeaders => response.headers;
 
@@ -79,14 +82,14 @@ class Context {
   }
 
   /// Sends error to client if it cannot handle request
-  void sendError(int code, String reason) {
+  Future<void> sendError(int code, String reason) async {
     final body = <String, String>{'error': reason};
     response.statusCode = code;
-    sendJson(body);
+    await sendJson(body);
   }
 
   /// Redirects to specified location [to] with optional [status]
-  void redirect(Uri to, {int status}) {
-    response.redirect(to, status: status ?? HttpStatus.movedTemporarily);
+  Future<void> redirect(Uri to, {int status}) async {
+    await response.redirect(to, status: status ?? HttpStatus.movedTemporarily);
   }
 }

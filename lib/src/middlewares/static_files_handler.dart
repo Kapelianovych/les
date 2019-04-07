@@ -8,7 +8,7 @@ import '../controllers/middleware.dart';
 /// [path] starts from the root of project.
 /// All files will store in [Context] object for current session.
 ///
-/// Note that context will not store actual files, instead it will contain
+/// Note that context doesn't store actual files, instead it will contain
 /// [File] object with some info about actual file.
 /// You must read and convert that file by yourself.
 ///

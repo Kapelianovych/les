@@ -37,17 +37,14 @@ class Router extends Controller {
 
   @override
   Future<void> handle(Context ctx) async {
-    final rest = _routes.where((route) => route.hasMatch(ctx));
-    if (rest.isNotEmpty) {
-      if (_middlewares.isNotEmpty) {
-        for (final middle in _middlewares) {
-          await middle.change(ctx);
-        }
+    if (_middlewares.isNotEmpty) {
+      for (final middle in _middlewares) {
+        await middle.change(ctx);
       }
+    }
 
-      for (final route in rest) {
-        await route.handle(ctx);
-      }
+    for (final route in _routes) {
+      await route.handle(ctx);
     }
   }
 

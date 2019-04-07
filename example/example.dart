@@ -15,12 +15,12 @@ void main(List<String> args) {
 // Define [Route]s that describe answers for concrete requests
 final routes = Router('/')
   ..add(Route(
-        // Path will be transformed to RegExp 
+        // Path will be transformed to RegExp => (:number)
         r':a(\d+)',
         (ctx) => ctx.send('Hello get')
       ))
   ..add(Route(
-      'af/af',
+      'post',
       (ctx) => ctx.send('Hello post'),
       method: HttpMethod.post
       ));

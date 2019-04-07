@@ -7,7 +7,7 @@ import 'controllers/middleware.dart';
 /// Root class for server
 ///
 /// If server cannot handle request, it sends error with code
-/// `404` and reason to client.
+/// `501`(not implemented) and reason to client.
 class Server {
   /// Internal storage of custom end controllers
   final List<Controller> _controllers = <Controller>[];
@@ -41,10 +41,12 @@ class Server {
     await for (final req in connection) {
       final ctx = Context(req);
 
-      final hasMatch = _controllers.any((r) => r.hasMatch(ctx));
-      if (!hasMatch) {
-        ctx.sendError(HttpStatus.notImplemented,
-            'Route isn\'t privided for path: ${ctx.uri.path}');
+      final _routes = _controllers.where((route) => route.hasMatch(ctx));
+      if (_routes.isEmpty) {
+        await ctx.sendError(
+            HttpStatus.notImplemented,
+            'Route isn\'t provided for path: "${ctx.uri.path}" '
+            'with method: "${ctx.method}"');
       }
 
       if (_middlewares.isNotEmpty) {
@@ -53,7 +55,7 @@ class Server {
         }
       }
 
-      for (final controller in _controllers) {
+      for (final controller in _routes) {
         await controller.handle(ctx);
       }
     }

@@ -17,7 +17,7 @@ Server()
 ### Route
 
 One of the main concept of library is `Route` class that  describes the response for a particular path.
-Its just accept path, method of the request and function that describe how to create response for such request.
+It accepts path, function that describe how to create response for such request, optionally method of the request and middlewares.
 
 ```dart
 Route(
@@ -49,9 +49,11 @@ final routes = Router('/identical');
   ..addAll(<Route>[routeOne, routeTwo, routeThree]);
 ```
 
+All paths that are defined in `Route` or `Router` transforms to `RegExp` and parses by [path_to_regexp](https://pub.dartlang.org/packages/path_to_regexp) package. For more info about constructing and managing paths see its documentation. Thanks to this you can provide parameter variable in path and sets to it some bounds.
+
 ### Middleware
 
-`Middleware` is like a `Route` controller, except that it isn't sends responses to client, but just process request before routes does. It is useful for processing some work before sending a response. **Middleware must not sends a response to the client!**
+`Middleware` is like a `Route` controller, except that it isn't send responses to client, but just process request before routes does. It is useful for processing some work before sending a response. **Middleware must not sends a response to the client!**
 
 ```dart
 Middleware(
@@ -63,9 +65,7 @@ Middlewares can be provided before each route in `Server`, before group of route
 
 ### Context
 
-The other main concept of this library is `Context` class. It contains the request object and build a response object. Handlers of `Route` and `Middleware` receive this object. It has various convinient methods for sending a responses and properties for reding request details or construct response (headers, ...) For details about methods and properties see `dartdoc`.
-
-All path that defines in `Route` of `Router` transforms to `RegExp` and parses by [path_to_regexp](https://pub.dartlang.org/packages/path_to_regexp) package. For more info about constructing and managing paths see its documentation. Thanks to this you can provide parameter variable in path and sets to it some bounds.
+The other main concept of this library is `Context` class. It contains the request object and build a response object. Handlers of `Route` and `Middleware` receive this object. It has various convenient methods for sending a responses and properties for reading request details or construct response (headers, ...). For details about methods and properties see `dartdoc`.
 
 ### Predefined middlewares
 
@@ -92,21 +92,20 @@ For all other content types the body will be treated as uninterpreted binary dat
 
 ```dart
 Server()
-    ..use(bodyParser) // Add bodyPaarser
+    ..use(bodyParser) // Add bodyParser
     ..use(...) // Add middlewares
     ..add(...) // Add routes
     ..listen(2000); // Start listen to requests
 ```
 
-2. **staticFilesHandler**: builds static files handler for provided path to static folder.
-Path starts from the root of project. All files will store in `Context` object for current session.
-Note that context will not store actual files, instead it will contain
+2. **staticFilesHandler**: builds static files handler for provided path to `static`(default) folder.
+Path starts from the root of project and in that level must be folder that contains all static files. All files will be stored in `Context` object for current session. Note that context doesn't store actual files, instead it will contain
 `File` objects with some info about actual file. You must read and convert that files by yourself.
-If directory isn't exist context object will have empty `Map` object.
+If directory isn't exist context object will have empty `Map<String, File>` object.
 
 ```dart
 Server()
-    ..use(bodyParser) // Add bodyPaarser
+    ..use(bodyParser) // Add bodyParser
     ..use(buildStaticFilesHandler()) // Add staticFilesHandler
     ..use(...) // Add middlewares
     ..add(...) // Add routes
