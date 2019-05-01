@@ -3,7 +3,7 @@ import 'package:les/les.dart';
 void main() {
   Server()
   ..use(bodyParser)
-  ..use(buildStaticFilesHandler())
+  //..use(cors())
     ..add(routes)
     ..listen(7575);
 }

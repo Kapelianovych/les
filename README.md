@@ -7,8 +7,11 @@ Created under a MIT-style
 
 The server builds by creating instance of `Server` class. It have few methods for adding `Middleware`s and `Route`s to handling incoming requests.
 
+You can create server that is listening for requests over default `http` scheme, over `https` (secure) scheme or
+via socket.
+
 ```dart
-Server()
+Server() // or Server.secure(...) of Server.socket(...)
     ..use(...) // Add middlewares
     ..add(...) // Add routes
     ..listen(2000); // Start listen to requests
@@ -108,6 +111,18 @@ Server()
     ..use(bodyParser) // Add bodyParser
     ..use(buildStaticFilesHandler()) // Add staticFilesHandler
     ..use(...) // Add middlewares
+    ..add(...) // Add routes
+    ..listen(2000); // Start listen to requests
+```
+
+3. **cors**: sets appropriate headers to response and enable CORS.
+
+```dart
+Server()
+    ..use(bodyParser) // Add bodyParser
+    ..use(buildStaticFilesHandler()) // Add staticFilesHandler
+    ..use(cors()) // Add cors
+    ..use(...) // Add other middlewares
     ..add(...) // Add routes
     ..listen(2000); // Start listen to requests
 ```

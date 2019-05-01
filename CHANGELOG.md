@@ -1,4 +1,12 @@
-# 0.0.4
+# 0.0.5
+
+- Add `Server.secure` constructor for establishing **HTTPS** connection and
+`Server.socket` constructor for establishing connection via socket.
+- Downgrade sdk to `2.1.0-dev.9.4` and some packages.
+- Add `cors` middleware.
+- Edit README.
+
+## 0.0.4
 
 - Add `session` getter to `Context` object.
 - Change checking route match to specific request (non-breaking fix).

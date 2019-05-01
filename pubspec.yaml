@@ -1,14 +1,14 @@
 name: les
 description: Light Efficient Server - for creating servers on Dart. Inspired by ExpressJS and Koa.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/YevhenKap/les
 author: Kapelianovych Yevhen <kapelianovych.y.v@gmail.com>
 
 environment:
-  sdk: '>=2.2.0 <3.0.0'
+  sdk: '>=2.1.0-dev.9.4 <3.0.0'
 
 dependencies:
-  http_server: ^0.9.8+1
+  http_server: ^0.9.8
   path_to_regexp: ^0.2.1
 
 dev_dependencies:

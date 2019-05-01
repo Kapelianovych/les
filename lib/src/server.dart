@@ -9,6 +9,26 @@ import 'controllers/middleware.dart';
 /// If server cannot handle request, it sends error with code
 /// `501`(not implemented) and reason to client.
 class Server {
+  /// Default constructor that creates simple HTTP server
+  Server();
+
+  /// Create secure instanse of [Server] with TLS/SSL connection
+  /// enabled and given [SecurityContext]
+  Server.secure(this._context, {this.requestClientSertificate = false});
+
+  /// Create instance of [Server] attached to [ServerSocket]
+  Server.socket(this._socket);
+
+  /// Security context for secure connection
+  SecurityContext _context;
+
+  /// Signals if server will request client sertificate, is
+  /// used when [Server] establish secure connection.
+  bool requestClientSertificate;
+
+  /// Socket that server is listening to
+  ServerSocket _socket;
+
   /// Internal storage of custom end controllers
   final List<Controller> _controllers = <Controller>[];
 
@@ -35,7 +55,16 @@ class Server {
   /// If `Route` isn't provided for `path` and `method`, error message will be
   /// sent to the client.
   Future<void> listen(int port, {String host = '127.0.0.1'}) async {
-    final connection = await HttpServer.bind(host, port);
+    HttpServer connection;
+    if (_socket != null) {
+      connection = HttpServer.listenOn(_socket);
+    } else if (_context != null) {
+      connection = await HttpServer.bindSecure(host, port, _context,
+          requestClientCertificate: requestClientSertificate);
+    } else {
+      connection = await HttpServer.bind(host, port);
+    }
+
     print('Connection was established at $host:$port');
 
     await for (final req in connection) {

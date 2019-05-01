@@ -12,6 +12,7 @@ export 'src/controllers/route.dart';
 export 'src/controllers/router.dart';
 
 export 'src/middlewares/body_parser.dart';
+export 'src/middlewares/cors.dart';
 export 'src/middlewares/static_files_handler.dart';
 
 export 'src/server.dart';
