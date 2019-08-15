@@ -28,5 +28,6 @@ Middleware buildStaticFilesHandler([String path = 'static']) {
 
   return Middleware((ctx) {
     ctx.staticFiles.addAll(files);
+    return;
   });
 }

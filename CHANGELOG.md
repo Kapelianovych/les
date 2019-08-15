@@ -1,4 +1,9 @@
-# 0.0.5
+# 0.1.0
+
+- Small changes to fix lint warnings.
+- Upgrade Dart SDK to `2.2.0`.
+
+## 0.0.5
 
 - Add `Server.secure` constructor for establishing **HTTPS** connection and
 `Server.socket` constructor for establishing connection via socket.

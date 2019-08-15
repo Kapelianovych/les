@@ -4,8 +4,8 @@
 /// but also you can define your own by creating instanse
 /// of [HttpMethod]
 class HttpMethod {
-  /// Create instance of [HttpMethod] with custom method([self])
-  const HttpMethod(this.self);
+  /// Create instance of [HttpMethod] with custom method([custom])
+  const HttpMethod(this.custom);
 
   /// GET method
   static const String get = 'GET';
@@ -35,5 +35,5 @@ class HttpMethod {
   static const String trace = 'TRACE';
 
   /// Holds custom method
-  final String self;
+  final String custom;
 }

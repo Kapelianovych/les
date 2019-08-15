@@ -11,7 +11,7 @@ You can create server that is listening for requests over default `http` scheme,
 via socket.
 
 ```dart
-Server() // or Server.secure(...) of Server.socket(...)
+Server() // or Server.secure(...) or Server.socket(...)
     ..use(...) // Add middlewares
     ..add(...) // Add routes
     ..listen(2000); // Start listen to requests

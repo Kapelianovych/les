@@ -37,5 +37,6 @@ Middleware cors([Map<String, String> options]) {
 
   return Middleware((ctx) {
     headers.forEach((key, value) => ctx.resHeaders.add(key, value));
+    return;
   });
 }
